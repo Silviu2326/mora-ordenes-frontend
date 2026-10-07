@@ -1,0 +1,9 @@
+{
+  "name": "mora-ordenes-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "check": "node --check public/app.js && node --check public/fields.js"
+  }
+}

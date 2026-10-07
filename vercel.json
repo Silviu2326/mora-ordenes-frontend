@@ -1,0 +1,37 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "",
+  "outputDirectory": "public",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "same-origin",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob:; frame-src blob: 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'"
+      },
+      "continue": true
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "https://ocr-api-production-d100.up.railway.app/api/$1",
+      "transforms": [
+        {
+          "type": "request.headers",
+          "op": "set",
+          "target": {
+            "key": "x-origin-secret"
+          },
+          "args": "$ORIGIN_SECRET",
+          "env": [
+            "ORIGIN_SECRET"
+          ]
+        }
+      ]
+    },
+    {
+      "handle": "filesystem"
+    }
+  ]
+}
